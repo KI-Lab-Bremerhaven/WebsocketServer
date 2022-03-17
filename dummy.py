@@ -1,10 +1,21 @@
+
+__author__ = 'Benjamin Thomas Schwertfeger'
+__email__ = 'development@b-schwertfeger.de'
+
+__description__ = "Script to generarte dummy Messages, sent to the Websocketserver, which will then sent to the client to display\
+ a log and if the right words are choosen, some dougnut charts."
+
 import requests
 import json
 import time
 import numpy as np
 
-do_request = lambda payload: requests.post('http://127.0.0.1:3000/api/data', data={'data': json.dumps(payload)})
-smiles: [str] = ['bad','medium', 'good']
+s = requests.Session()
+
+url = "http://127.0.0.1:3000"#"http://192.168.8.140:3000"
+
+do_request = lambda payload: s.post(f'{url}/api/data', data={'data': json.dumps(payload)})
+smiles: [str] = ['bad','medium', 'good', 'unknown']
 gender: [str] = ['male', 'female', 'wtf']
 pleasures: [str] = ['happy', 'bored', 'funny', 'sweet', 'annoying']
 emotions: [str] = ['happy', 'excited', 'bored', 'stressy']

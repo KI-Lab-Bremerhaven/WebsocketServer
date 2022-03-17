@@ -96,5 +96,4 @@ export default function updatePieChart(topic, data) {
         }
         cntr++;
     });
-
 }

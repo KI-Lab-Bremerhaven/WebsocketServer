@@ -26,6 +26,12 @@ const
     server = http.createServer(app),
     io = new Server(server);
 
+const {
+    PORT,
+    URL
+} = process.env.NODE_ENV == 'PROD' ? require('./config').PRODUCTION : require('./config').DEVELOPMENT;
+
+
 /* * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * * 
  * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * 
  * * * -----> S E T T I N G S <----- ----- ----- */
@@ -36,19 +42,17 @@ app.use(express.urlencoded({
 }));
 app.use(express.static('static'))
 
-const
-    PORT = process.env.PORT || 3000,
-    undefined = 'undefined'
+const undefined = 'undefined'
 
 /* * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * * 
  * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * 
  * * * ----->  R O U T E S <----- ----- ----- */
 
-app.get('/', (req, res) => {
+app.get(`/`, (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
 
-app.get('/api/data', (req, res) => {
+app.get(`/api/data`, (req, res) => {
     try {
         io.emit('chat message', req.query.message)
         res.status(200).end();
@@ -59,23 +63,26 @@ app.get('/api/data', (req, res) => {
         }).end();
     }
 })
-app.post('/api/data', (req, res) => {
+
+app.post(`/api/data`, (req, res) => {
     const body = req.body;
     const data = body.data;
 
     if (typeof data === undefined) res.status(400).end();
     else {
-        // if(typeof JSON.parse(data) === undefined
-        // try{
-        console.log(data)
-        io.emit('chat message', JSON.stringify(data))
-        res.status(200).end();
-        // } catch (e) {
-        //     res.json({
-        //         message: e,
-        //         status_code: 500
-        //     }).end();
-        // }
+        if (JSON.stringify(data).toUpperCase().includes('UNKNOWN')) return res.status(200).end();
+        else {
+            try {
+                console.log(data)
+                io.emit('chat message', JSON.stringify(data))
+                res.status(200).end();
+            } catch (e) {
+                res.json({
+                    message: e,
+                    status_code: 500
+                }).end();
+            }
+        }
     }
 });
 
@@ -101,7 +108,7 @@ io.on('connection', (socket) => {
  * * * -----> RUN APP <----- ----- ----- */
 
 server.listen(PORT, () => {
-    console.log('listening on http://localhost:3000');
+    console.log(`listening on  ${URL}`);
 });
 
 /* * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * * 

@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<!-- /**
+ *  Entry / Start Point of the Websocket Applicartion 
+ *   + Setup
+ *   + Create App
+ *   + Run App
+ *  
+ * @version 1.0
+ * @author Benjamin Thomas Schwertfeger
+ * @email development@b-schwertfeger.de
+ * @github https://github.com/ProjectPepperHSB/WebsocketServer
+ * / -->
+
+
+ <!DOCTYPE html>
 <html lang='en'>
 
 <head>
@@ -133,21 +146,13 @@
       messages = document.getElementById('messages'),
       form = document.getElementById('form'),
       input = document.getElementById('input'),
+      received_messages_count = 0,
       received_data = {
         smiles: {},
         gender: {},
         emotion_state: {},
         pleasure_state: {}
-      }, 
-      received_messages_count = 0;
-
-    // form.addEventListener('submit', (e) => {
-    //   e.preventDefault();
-    //   if (input.value) {
-    //     socket.emit('chat message', input.value);
-    //     input.value = '';
-    //   }
-    // });
+      };
 
     function handle_topic(data) {
       data = JSON.parse(data);
