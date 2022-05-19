@@ -108,7 +108,7 @@ io.on('connection', (socket) => {
  * * * -----> RUN APP <----- ----- ----- */
 
 server.listen(PORT, () => {
-    console.log(`listening on  ${URL}`);
+    console.log(`listening on  ${URL}:${PORT}`);
 });
 
 /* * * * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- * * * * 

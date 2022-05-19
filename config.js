@@ -6,11 +6,11 @@ const ip = require('underscore').chain(require('os').networkInterfaces()).values
 console.log(ip)
 
 module.exports.DEVELOPMENT = {
-    PORT: 3000,
-    URL: `http://localhost:3000`,
+    PORT: 3001,
+    URL: `http://localhost`,
 };
 
 module.exports.PRODUCTION = {
-    PORT: 3000,
-    URL: `http://${ip}:3000`,
+    PORT: 3001,
+    URL: `http://${ip}`,
 };
