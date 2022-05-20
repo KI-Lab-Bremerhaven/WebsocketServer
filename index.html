@@ -144,7 +144,8 @@
         smiles: {},
         gender: {},
         emotion_state: {},
-        pleasure_state: {}
+        pleasure_state: {},
+        excitement_state: {},
       };
 
     function handle_topic(data) {
@@ -168,9 +169,13 @@
           else received_data.emotion_state[data.state]++;
           data2Plot = received_data.emotion_state;
         } else if (data.topic === 'phrase') {
-          if (typeof received_data.phrases[data.state] == 'undefined') eceived_data.phrases[data.state] = 1;
+          if (typeof received_data.phrases[data.state] == 'undefined') received_data.phrases[data.state] = 1;
           else received_data.phrases[data.state]++;
           data2Plot = received_data.phrases;
+        } else if (data.topic === 'excitement_state') {
+          if (typeof received_data.excitement_state[data.state] == 'undefined') received_data.excitement_state[data.state] = 1;
+          else received_data.excitement_state[data.state]++;
+          data2Plot = received_data.excitement_state;
         }
         updatePieChart(data.topic, data2Plot)
       } catch (e) { }
