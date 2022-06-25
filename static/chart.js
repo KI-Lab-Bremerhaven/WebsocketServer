@@ -66,23 +66,22 @@ function get_chart_config(data, label) {
 
 window.onload = () => {
     window.dashboard_plot_2 = new Chart($('#dashboard-plot-canvas-2'), get_chart_config({}, 'Smile State'));
-    // window.dashboard_plot_3 = new Chart($('#dashboard-plot-canvas-3'), get_chart_config({}, 'Gender Distribution'));
     window.dashboard_plot_3 = new Chart($('#dashboard-plot-canvas-3'), get_chart_config({}, 'Excitement State'));
     window.dashboard_plot_4 = new Chart($('#dashboard-plot-canvas-4'), get_chart_config({}, 'Pleasure State'));
     window.dashboard_plot_5 = new Chart($('#dashboard-plot-canvas-5'), get_chart_config({}, 'Emotion State'));
 }
 
 export default function updatePieChart(topic, data) {
+    console.log('-->'+data)
     let charts = {
         'smile_state': window.dashboard_plot_2,
-        // 'gender': window.dashboard_plot_3,
         'excitement_state': window.dashboard_plot_3,
         'pleasure_state': window.dashboard_plot_4,
         'emotion_state': window.dashboard_plot_5,
     }
     const labels = [
         'Smile State',
-        'Excitement State', //'Gender Distribution', 
+        'Excitement State', //'Gender Distribution',
         'Pleasure State',
         'Emotion State'
     ];
@@ -96,6 +95,7 @@ export default function updatePieChart(topic, data) {
                 val.data.labels = config.data.labels;
                 val.data.datasets = config.data.datasets;
                 val.update();
+                console.log('updated')
                 return;
             } catch (e) {
                 console.log('nicht mein Problem')

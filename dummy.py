@@ -12,7 +12,7 @@ import numpy as np
 
 s = requests.Session()
 
-url = "http://127.0.0.1:3000"#"http://192.168.8.140:3000"
+url = "http://127.0.0.1:3001"#"http://192.168.8.140:3000"
 
 do_request = lambda payload: s.post(f'{url}/api/data', data={'data': json.dumps(payload)})
 smiles: [str] = ['bad','medium', 'good', 'unknown']
